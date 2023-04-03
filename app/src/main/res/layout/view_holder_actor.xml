@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/width_actor"
+    android:layout_height="@dimen/height_actor"
+    android:layout_marginStart="@dimen/margin_medium_2"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivBestActor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:src="@drawable/movie_actor"
+        android:scaleType="centerCrop"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradient_actor"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/margin_large"
+        android:layout_height="@dimen/margin_large"
+        tools:src="@drawable/ic_baseline_favorite_white_24"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        app:tint="@color/colorAccent"/>
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/ivLike"
+        android:layout_width="@dimen/margin_medium_2"
+        android:layout_height="@dimen/margin_medium_2"
+        tools:src="@drawable/ic_baseline_thumb_up_white_24"
+        android:layout_alignParentBottom="true"
+        android:elevation="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_medium_2"
+        android:layout_marginStart="@dimen/margin_card_medium_2"
+        app:tint="@color/colorAccent"/>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/ivLike"
+        android:text="YOU LIKE 15 MOVIES"
+        android:textColor="@color/colorSecondaryText"
+        android:textStyle="bold"
+        android:elevation="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_card_medium_2"
+        android:textSize="@dimen/text_smaller"
+        android:layout_toEndOf="@id/ivLike"
+        android:layout_marginStart="@dimen/margin_small"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvActorName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/ivLike"
+        android:layout_alignStart="@id/ivLike"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:text="Sung Jinwoo"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginEnd="@dimen/margin_card_medium_2"/>
+</RelativeLayout>
