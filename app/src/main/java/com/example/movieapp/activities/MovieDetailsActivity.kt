@@ -9,23 +9,16 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.data.models.MovieModel
-import com.example.movieapp.data.models.MovieModelImpl
 import com.example.movieapp.data.vos.ActorVO
 import com.example.movieapp.data.vos.GenreVO
 import com.example.movieapp.data.vos.MovieVO
 import com.example.movieapp.databinding.ActivityMovieDetailsBinding
-import com.example.movieapp.mvp.presenters.MainPresenter
-import com.example.movieapp.mvp.presenters.MovieDetailPresenter
-import com.example.movieapp.mvp.presenters.MovieDetailPresenterImpl
-import com.example.movieapp.mvp.views.MovieDetailView
-import com.example.movieapp.mvvm.MainViewModel
 import com.example.movieapp.mvvm.MovieDetailViewModel
 import com.example.movieapp.utils.IMAGE_BASE_URL
 import com.example.movieapp.viewpods.ActorListViewPod
 
 
-class MovieDetailsActivity : AppCompatActivity(), MovieDetailView {
+class MovieDetailsActivity : AppCompatActivity() {
     //viewPods
     lateinit var binding: ActivityMovieDetailsBinding
     lateinit var actorsViewPod: ActorListViewPod
@@ -33,8 +26,6 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailView {
 
     //ViewModel
     private lateinit var mViewModel: MovieDetailViewModel//MVVM
-    //Presenter
-    private lateinit var mPresenter: MovieDetailPresenter//MVP
 
     companion object {
         private const val MOVIE_EXTRA_ID = "MOVIE_EXTRA_ID"
@@ -50,16 +41,13 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailView {
         binding = ActivityMovieDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpPresenters()//MVP
-
         val movieId = intent?.getIntExtra(MOVIE_EXTRA_ID, 0)
         movieId?.let {
-            mPresenter.onUiReadyInMovieDetail(this, movieId)//MVP
-//            setUpViewModel(it)//MVVM
+            setUpViewModel(it)//MVVM
     }
         setUpViewPods()
         setUpListeners()
-//        observeLiveData()//MVVM
+        observeLiveData()//MVVM
     }
 
     private fun observeLiveData(){
@@ -74,10 +62,6 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailView {
         mViewModel.getInitData(movieId)
     }
 
-    private fun setUpPresenters(){//MVP
-        mPresenter = ViewModelProvider(this)[MovieDetailPresenterImpl::class.java]
-        mPresenter.onInitView(this)
-    }
     private fun bindData(movie: MovieVO) {
         Glide.with(this)
             .load("${IMAGE_BASE_URL}${movie.backdropPath}")
@@ -132,20 +116,5 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailView {
         )
     }
 
-    override fun showMovieDetails(movie: MovieVO) {
-        bindData(movie)
-    }
 
-    override fun showCreditsByMovie(cast: List<ActorVO>, crew: List<ActorVO>) {
-        actorsViewPod.setData(cast)
-        creatorsViewPod.setData(crew)
-    }
-
-    override fun navigateBack() {
-        finish()
-    }
-
-    override fun showError(errorString: String) {
-        Toast.makeText(this, errorString, Toast.LENGTH_LONG).show()
-    }
 }
